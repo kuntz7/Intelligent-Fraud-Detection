@@ -26,9 +26,6 @@ def run_demo():
     # Get features only
     X_raw = df.drop('Class', axis=1).values
     
-    # NOTE: In a real production environment, you should save the fitted scaler 
-    # from the training phase (e.g., using joblib) and load it here.
-    # For this demo, we refit on the whole dataset to approximate the scaling.
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_raw)
 
