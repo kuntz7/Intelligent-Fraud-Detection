@@ -84,6 +84,33 @@ You can download a pre-trained model checkpoint here: **(https://colab.research.
 
 > **Note:** Run `src/main.py` locally to generate `checkpoints/mlp_weighted.pth` immediately.
 
+
+## Reproducibility & Configuration
+To ensure reproducibility, we adhered to the following setup:
+
+- Data Split:
+
+    Train/Val/Test split: 60% / 20% / 20%.
+
+    Stratified Sampling was used to maintain the 0.17% fraud ratio across all splits.
+
+- Preprocessing:
+
+    Time and Amount features were scaled using StandardScaler (fit on training data only to avoid leakage).
+
+    V1-V28 features were left as-is (already PCA transformed).
+
+- Hyperparameters:
+
+    Random Forest: n_estimators=100, n_jobs=-1, random_state=42.
+
+    MLP: Layers [64, 32, 1], Dropout=0.3, Optimizer=Adam(lr=0.001), Batch_Size=2048.
+
+    Autoencoder: Encoder [30 -> 16 -> 8], Decoder [8 -> 16 -> 30], Loss=MSE.
+
+- Seed: random_state=42 is used globally for all splits and initializations.
+
+
 ## Acknowledgments
 
 - Dataset provided by Machine Learning Group - ULB on Kaggle.
